@@ -1,0 +1,63 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" /> 
+	<meta name="viewport"
+	content="width=device-width, initial-scale=1.0" /> 
+	<title>Registered Users</title> 
+	<link rel="stylesheet" type="text/css" href="styles.css">
+</head> 
+<body> 
+	<div class="d-flex justify-content-center"> 
+		<div class="spinner-border"
+		role="status" id="loading"> 
+		<span class="sr-only">Loading...</span> 
+	</div> 
+</div> 
+<h1>Registered Users:</h1> 
+<table id="users"></table> 
+
+<script>
+	const api_url = 
+	"http://localhost:8080/api/products/3"; 
+	async function getapi(url) { 
+		const response = await fetch(url); 
+		var data = await response.json(); 
+		console.log(data); 
+		if (response) { 
+			hideloader(); 
+		} 
+		show(data); 
+	} 
+	getapi(api_url); 
+
+	function hideloader() { 
+		document.getElementById('loading').style.display = 'none'; 
+	} 
+	function show(data) { 
+		let tab = 
+		`<tr> 
+		<th>ID</th> 
+		<th>Name</th> 
+		<th>Branch</th> 
+		<th>Email</th> 
+		</tr>`; 
+
+		for (var i = 0; i< data.length ;i++) { 
+			tab += `<tr> 
+			<td>${data[i].id} </td> 
+			<td>${data[i].name}</td> 
+			<td>${data[i].branch}</td> 
+			<td>${data[i].email}</td>		 
+			</tr>`; 
+		} 
+		document.getElementById("users").innerHTML = tab; 
+	} 
+
+</script>
+<br><br><br>
+<div>
+	<a href="page2.html" style="font-size: 20px;">Search a specific id ??</a>
+</div>
+</body> 
+</html>
